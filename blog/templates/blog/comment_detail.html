@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <article class="media content-section">
+    <div class="small text-muted">Comment by {{ comments.author }}</div>
+            <a href="{% url 'comment_update' comments.pk %}">{{ comments.content }}</a>
+        <div class="small text-muted"> Posted on {{ comments.date_posted }}</div>
+    </article>
+
+    <div>
+        <a type="button" class="btn btn-outline-primary" href="{% url 'post_detail' comments.post.pk %}">Back to post</a>
+    </div>
+
+      {% if user == comments.author %}
+            <a href="{% url 'comment_update' comments.pk %}">
+              <button type="button" class="btn btn-outline-primary">Update</button>
+            </a>
+            <a type="button" class="btn btn-outline-danger" href="{% url 'comment_delete' object.pk %}">
+                Delete
+            </a>
+      {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete comment</legend>
+                <h2>Are you sure you want to delete comment?</h2>
+                {{ form|crispy }}
+            </fieldset>
+            <p class="d-inline-flex gap-1">
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                <a type="button" class="btn btn-outline-primary" href="{% url 'comment_detail' object.pk %}">Cancel</a>
+            </p>
+        </form>
+    </div>
+{% endblock content %}
