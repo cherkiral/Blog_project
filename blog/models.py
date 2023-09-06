@@ -8,6 +8,10 @@ class Post(models.Model):
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='post_like')
+
+    def number_of_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return f'{self.title} by {self.author}'
